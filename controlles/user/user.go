@@ -12,12 +12,6 @@ func GetUserInfo(c *gin.Context) {
 	response.ReturnError(c, 1, "error")
 }
 
-type UserInfo struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
-	Mobile   string `json:"mobile"`
-}
-
 func Register(c *gin.Context) {
 	// json
 	params := make(map[string]string)
@@ -61,7 +55,7 @@ func Login(c *gin.Context) {
 }
 
 func BindMobile(c *gin.Context) {
-
+	// todo wx-sdk
 	//c.Params("id") // 路径参数
 
 	// X-www-form-urlencoded
