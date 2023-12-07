@@ -5,16 +5,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-type UserRegisterParams struct {
-	Username        string `json:"username"`
-	Password        string `json:"password"`
-	PasswordConfirm string `json:"passwordConfirm"`
-}
-type LoginParams struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
-}
-
 type UserInfo struct {
 	UserId           int    `json:"user_id"`
 	Username         string `json:"username"`

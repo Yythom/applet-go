@@ -3,21 +3,14 @@ package services
 import (
 	"fmt"
 	"test/database"
-	"test/model"
+	"test/domain"
 	"test/tools"
 )
 
-func RegisterUser(params map[string]string) *model.UserInfoType {
-	data := &model.UserInfoType{
-		Username:         params["username"],
-		Password:         params["password"],
-		Gender:           "",
-		Birthday:         "",
-		Address:          "",
-		LastLogin:        "",
-		AccountLocked:    false,
-		RegistrationTime: "",
-		UserType:         "",
+func RegisterUser(params map[string]string) *domain.UserRegisterParams {
+	data := &domain.UserRegisterParams{
+		Username: params["username"],
+		Password: params["password"],
 	}
 
 	bsonD, _ := tools.ConvertStructToBsonD(data)

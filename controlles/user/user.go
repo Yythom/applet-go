@@ -3,6 +3,7 @@ package user
 import (
 	"github.com/gin-gonic/gin"
 	"test/controlles/response"
+	"test/domain"
 	"test/services"
 )
 
@@ -30,11 +31,6 @@ func Register(c *gin.Context) {
 }
 
 func Login(c *gin.Context) {
-	type LoginParams struct {
-		Username string `json:"username"`
-		Password string `json:"password"`
-	}
-
 	// json
 	params := make(map[string]string)
 	err := c.BindJSON(&params)
@@ -44,7 +40,7 @@ func Login(c *gin.Context) {
 			c,
 			0,
 			"登入成功",
-			LoginParams{
+			domain.LoginParams{
 				Username: params["username"],
 				Password: params["password"],
 			},
