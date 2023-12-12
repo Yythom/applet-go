@@ -13,7 +13,7 @@ func ConvertStructToBsonD(data interface{}) (bson.D, error) {
 	}
 
 	if value.Kind() != reflect.Struct {
-		return nil, fmt.Errorf("Input is not a struct")
+		return nil, fmt.Errorf("input is not a struct")
 	}
 
 	var bsonD bson.D
