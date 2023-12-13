@@ -1,11 +1,11 @@
 package middleware
 
 import (
+	"applet/core/jwt"
+	"applet/domain"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"strings"
-	"test/domain"
-	"test/tools"
 )
 
 func JwtAuthMiddleware(secret string) gin.HandlerFunc {
@@ -14,9 +14,9 @@ func JwtAuthMiddleware(secret string) gin.HandlerFunc {
 		t := strings.Split(authHeader, " ")
 		if len(t) == 2 {
 			authToken := t[1]
-			authorized, err := tools.IsAuthorized(authToken, secret)
+			authorized, err := jwt.IsAuthorized(authToken, secret)
 			if authorized {
-				userID, err := tools.ExtractIDFromToken(authToken, secret)
+				userID, err := jwt.ExtractIDFromToken(authToken, secret)
 				if err != nil {
 					c.JSON(http.StatusUnauthorized, domain.Response{Message: err.Error()})
 					c.Abort()

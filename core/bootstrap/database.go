@@ -1,10 +1,10 @@
 package bootstrap
 
 import (
+	"applet/core/mongo"
 	"context"
 	"fmt"
 	"log"
-	"test/mongo"
 	"time"
 )
 

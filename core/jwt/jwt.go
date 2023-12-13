@@ -1,9 +1,9 @@
-package tools
+package jwt
 
 import (
+	"applet/domain"
 	"fmt"
 	"github.com/golang-jwt/jwt/v4"
-	"test/domain"
 	"time"
 )
 

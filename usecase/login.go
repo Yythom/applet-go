@@ -1,9 +1,9 @@
 package usecase
 
 import (
+	"applet/core/jwt"
+	"applet/domain"
 	"context"
-	"test/domain"
-	"test/tools"
 	"time"
 )
 
@@ -26,9 +26,9 @@ func (lu *loginUsecase) GetUserByName(c context.Context, name string) (domain.Us
 }
 
 func (lu *loginUsecase) CreateAccessToken(user *domain.User, secret string, expiry int) (accessToken string, err error) {
-	return tools.CreateAccessToken(user, secret, expiry)
+	return jwt.CreateAccessToken(user, secret, expiry)
 }
 
 func (lu *loginUsecase) CreateRefreshToken(user *domain.User, secret string, expiry int) (refreshToken string, err error) {
-	return tools.CreateRefreshToken(user, secret, expiry)
+	return jwt.CreateRefreshToken(user, secret, expiry)
 }

@@ -1,10 +1,10 @@
 package route
 
 import (
+	"applet/core/bootstrap"
+	"applet/core/mongo"
+	"applet/route/middleware"
 	"github.com/gin-gonic/gin"
-	"test/bootstrap"
-	"test/middleware"
-	"test/mongo"
 	"time"
 )
 

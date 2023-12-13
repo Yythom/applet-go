@@ -1,7 +1,7 @@
 package bootstrap
 
 import (
-	"test/mongo"
+	"applet/core/mongo"
 )
 
 type Application struct {

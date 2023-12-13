@@ -1,9 +1,9 @@
 package main
 
 import (
+	"applet/core/bootstrap"
+	"applet/route"
 	"github.com/gin-gonic/gin"
-	"test/bootstrap"
-	"test/route"
 	"time"
 )
 

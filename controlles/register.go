@@ -1,12 +1,12 @@
 package controlles
 
 import (
+	"applet/core/bootstrap"
+	"applet/domain"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"golang.org/x/crypto/bcrypt"
 	"net/http"
-	"test/bootstrap"
-	"test/domain"
 )
 
 type RegisterController struct {

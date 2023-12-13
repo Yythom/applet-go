@@ -1,13 +1,13 @@
 package route
 
 import (
+	"applet/controlles"
+	"applet/core/bootstrap"
+	"applet/core/mongo"
+	"applet/domain"
+	"applet/repository"
+	"applet/usecase"
 	"github.com/gin-gonic/gin"
-	"test/bootstrap"
-	"test/controlles"
-	"test/domain"
-	"test/mongo"
-	"test/repository"
-	"test/usecase"
 	"time"
 )
 

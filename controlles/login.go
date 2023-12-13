@@ -1,12 +1,12 @@
 package controlles
 
 import (
+	"applet/core/bootstrap"
+	"applet/domain"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 	"log"
 	"net/http"
-	"test/bootstrap"
-	"test/domain"
 )
 
 type LoginController struct {

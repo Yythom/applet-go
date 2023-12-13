@@ -1,4 +1,4 @@
-module test
+module applet
 
 go 1.21.4
 
