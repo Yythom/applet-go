@@ -1,7 +1,7 @@
 package route
 
 import (
-	"applet/controlles"
+	"applet/apis/controller"
 	"applet/core/bootstrap"
 	"applet/core/mongo"
 	"applet/domain"
@@ -13,7 +13,7 @@ import (
 
 func NewRegisterRouter(env *bootstrap.Env, timeout time.Duration, db mongo.Database, group *gin.RouterGroup) {
 	ur := repository.NewUserRepository(db, domain.CollectionUser)
-	sc := controlles.RegisterController{
+	sc := controller.RegisterController{
 		RegisterUsecase: usecase.NewRegisterUsecase(ur, timeout),
 		Env:             env,
 	}

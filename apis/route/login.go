@@ -1,7 +1,7 @@
 package route
 
 import (
-	"applet/controlles"
+	"applet/apis/controller"
 	"applet/core/bootstrap"
 	"applet/core/mongo"
 	"applet/domain"
@@ -13,7 +13,7 @@ import (
 
 func NewLoginRouter(env *bootstrap.Env, timeout time.Duration, db mongo.Database, group *gin.RouterGroup) {
 	ur := repository.NewUserRepository(db, domain.CollectionUser)
-	lc := &controlles.LoginController{
+	lc := &controller.LoginController{
 		LoginUsecase: usecase.NewLoginUsecase(ur, timeout),
 		Env:          env,
 	}

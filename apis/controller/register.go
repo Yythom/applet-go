@@ -1,4 +1,4 @@
-package controlles
+package controller
 
 import (
 	"applet/core/bootstrap"

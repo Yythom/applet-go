@@ -1,9 +1,9 @@
 package route
 
 import (
+	"applet/apis/middleware"
 	"applet/core/bootstrap"
 	"applet/core/mongo"
-	"applet/route/middleware"
 	"github.com/gin-gonic/gin"
 	"time"
 )
@@ -13,7 +13,7 @@ func Setup(env *bootstrap.Env, timeout time.Duration, db mongo.Database, gin *gi
 	// All Public APIs
 	NewRegisterRouter(env, timeout, db, publicRouter)
 	NewLoginRouter(env, timeout, db, publicRouter)
-	//NewRefreshTokenRouter(env, timeout, db, publicRouter)
+	NewRefreshTokenRouter(env, timeout, db, publicRouter)
 
 	protectedRouter := gin.Group("")
 	// Middleware to verify AccessToken
