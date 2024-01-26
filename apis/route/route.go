@@ -20,5 +20,10 @@ func Setup(env *bootstrap.Env, timeout time.Duration, db mongo.Database, gin *gi
 	protectedRouter.Use(middleware.JwtAuthMiddleware(env.AccessTokenSecret))
 	// All Private APIs
 	NewProfileRouter(env, timeout, db, protectedRouter)
-	//NewTaskRouter(env, timeout, db, protectedRouter)
+
+	adminRouter := gin.Group("/admin")
+	adminRouter.Use(middleware.JwtAuthMiddleware(env.AccessTokenSecret))
+	adminRouter.Use(middleware.PermissionMiddleware([]string{"admin"}))
+	NewPermissionRouter(env, timeout, db, adminRouter)
+	NewRoleRouter(env, timeout, db, adminRouter)
 }
