@@ -23,7 +23,7 @@ func Setup(env *bootstrap.Env, timeout time.Duration, db mongo.Database, gin *gi
 
 	adminRouter := gin.Group("/admin")
 	adminRouter.Use(middleware.JwtAuthMiddleware(env.AccessTokenSecret))
-	adminRouter.Use(middleware.PermissionMiddleware([]string{"admin"}))
+	//adminRouter.Use(middleware.PermissionMiddleware([]string{""}))
 	NewPermissionRouter(env, timeout, db, adminRouter)
 	NewRoleRouter(env, timeout, db, adminRouter)
 }

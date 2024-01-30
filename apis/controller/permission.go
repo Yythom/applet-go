@@ -55,6 +55,8 @@ func (pc *PermissionController) CreatePermission(c *gin.Context) {
 func (pc *PermissionController) UpdatePermission(c *gin.Context) {
 	var request domain.UpdatePermissionRequest
 
+	permissionId := c.Param("permissionId")
+
 	err := c.ShouldBind(&request)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, domain.Response{Message: err.Error()})
@@ -62,7 +64,7 @@ func (pc *PermissionController) UpdatePermission(c *gin.Context) {
 	}
 
 	// 根据权限ID查询权限
-	permission, err := pc.PermissionUseCase.GetByID(c, request.ID)
+	permission, err := pc.PermissionUseCase.GetByID(c, permissionId)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, domain.Response{Message: "Internal Server Error", Code: "ERROR"})
 		return
@@ -84,7 +86,7 @@ func (pc *PermissionController) UpdatePermission(c *gin.Context) {
 
 // DeletePermission 删除权限
 func (pc *PermissionController) DeletePermission(c *gin.Context) {
-	permissionID := c.Param("id")
+	permissionID := c.Param("permissionId")
 
 	// 根据权限ID查询权限
 	permission, err := pc.PermissionUseCase.GetByID(c, permissionID)
@@ -109,7 +111,7 @@ func (pc *PermissionController) DeletePermission(c *gin.Context) {
 
 // GetPermission 查询权限
 func (pc *PermissionController) GetPermission(c *gin.Context) {
-	permissionID := c.Param("id")
+	permissionID := c.Param("permissionId")
 
 	// 根据权限ID查询权限
 	permission, err := pc.PermissionUseCase.GetByID(c, permissionID)

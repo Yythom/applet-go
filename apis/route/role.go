@@ -12,16 +12,17 @@ import (
 )
 
 func NewRoleRouter(env *bootstrap.Env, timeout time.Duration, db mongo.Database, group *gin.RouterGroup) {
-	rr := repository.NewRoleRepository(db, domain.CollectionUser)
+	rr := repository.NewRoleRepository(db, domain.CollectionRole)
 	ur := repository.NewUserRepository(db, domain.CollectionUser)
-	pr := repository.NewPermissionRepository(db, domain.CollectionUser)
+	pr := repository.NewPermissionRepository(db, domain.CollectionPermission)
 	pc := usecase.NewPermissionUsecase(pr, timeout)
 	lc := &controller.RoleController{
 		RoleUseCase: usecase.NewRoleUsecase(ur, rr, pc, timeout),
 		Env:         env,
 	}
-	group.POST("/role/create", lc.CreateRole)
-	group.DELETE("/role/delete", lc.DeleteRole)
-	group.GET("/role", lc.GetRoleByID)
-	group.GET("/role/list", lc.ListRoles)
+	group.POST("/roles", lc.CreateRole)
+	group.DELETE("/roles/:roleId", lc.DeleteRole)
+	group.GET("/roles/:roleId", lc.GetRoleByID)
+	group.PUT("/roles/:roleId", lc.UpdateRole)
+	group.GET("/roles", lc.ListRoles)
 }

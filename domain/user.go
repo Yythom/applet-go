@@ -6,7 +6,9 @@ import (
 )
 
 const (
-	CollectionUser = "users"
+	CollectionUser       = "users"
+	CollectionRole       = "roles"
+	CollectionPermission = "permissions"
 )
 
 type User struct {
