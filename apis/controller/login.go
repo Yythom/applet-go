@@ -14,6 +14,18 @@ type LoginController struct {
 	Env          *bootstrap.Env
 }
 
+// Login @Summary User Login
+// @Description Logs in a user and returns access and refresh tokens
+// @Tags auth
+// @Accept json
+// @Produce json
+// @Param name formData string true "Username"
+// @Param password formData string true "Password"
+// @Success 200 {object} domain.Response{data=domain.LoginResponse} "Successful login"
+// @Failure 401 {object} domain.Response "Invalid credentials"
+// @Failure 404 {object} domain.Response "User not found with the given name"
+// @Failure 500 {object} domain.Response "Internal server error"
+// @Router /login [post]
 func (lc *LoginController) Login(c *gin.Context) {
 	var request domain.LoginRequest
 

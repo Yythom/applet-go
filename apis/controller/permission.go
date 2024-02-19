@@ -13,7 +13,18 @@ type PermissionController struct {
 	Env               *bootstrap.Env
 }
 
-// CreatePermission 创建权限
+// CreatePermission @Summary 创建权限
+// @Description 创建权限
+// @Tags permissions
+// @Accept json
+// @Produce json
+// @Param request body domain.CreatePermissionRequest true "权限信息"
+// @Success 200 {object} domain.Response "成功"
+// @Failure 400 {object} domain.Response "请求错误"
+// @Failure 404 {object} domain.Response "未找到资源"
+// @Failure 409 {object} domain.Response "资源冲突"
+// @Failure 500 {object} domain.Response "内部服务器错误"
+// @Router /permissions [post]
 func (pc *PermissionController) CreatePermission(c *gin.Context) {
 	var request domain.CreatePermissionRequest
 
@@ -51,7 +62,18 @@ func (pc *PermissionController) CreatePermission(c *gin.Context) {
 	c.JSON(http.StatusOK, permissionResponse)
 }
 
-// UpdatePermission 修改权限
+// UpdatePermission @Summary 修改权限
+// @Description 修改权限
+// @Tags permissions
+// @Accept json
+// @Produce json
+// @Param permissionId path string true "权限ID"
+// @Param request body domain.UpdatePermissionRequest true "权限信息"
+// @Success 200 {object} domain.Response "成功"
+// @Failure 400 {object} domain.Response "请求错误"
+// @Failure 404 {object} domain.Response "未找到资源"
+// @Failure 500 {object} domain.Response "内部服务器错误"
+// @Router /permissions/{permissionId} [put]
 func (pc *PermissionController) UpdatePermission(c *gin.Context) {
 	var request domain.UpdatePermissionRequest
 
@@ -84,7 +106,16 @@ func (pc *PermissionController) UpdatePermission(c *gin.Context) {
 	c.JSON(http.StatusOK, domain.Response{Message: "Permission updated successfully", Code: "SUCCESS", Data: permission})
 }
 
-// DeletePermission 删除权限
+// DeletePermission @Summary 删除权限
+// @Description 删除权限
+// @Tags permissions
+// @Accept json
+// @Produce json
+// @Param permissionId path string true "权限ID"
+// @Success 200 {object} domain.Response "成功"
+// @Failure 404 {object} domain.Response "未找到资源"
+// @Failure 500 {object} domain.Response "内部服务器错误"
+// @Router /permissions/{permissionId} [delete]
 func (pc *PermissionController) DeletePermission(c *gin.Context) {
 	permissionID := c.Param("permissionId")
 
@@ -109,7 +140,16 @@ func (pc *PermissionController) DeletePermission(c *gin.Context) {
 	c.JSON(http.StatusOK, domain.Response{Message: "Permission deleted successfully", Code: "SUCCESS"})
 }
 
-// GetPermission 查询权限
+// GetPermission @Summary 查询权限
+// @Description 查询权限
+// @Tags permissions
+// @Accept json
+// @Produce json
+// @Param permissionId path string true "权限ID"
+// @Success 200 {object} domain.Response "成功"
+// @Failure 404 {object} domain.Response "未找到资源"
+// @Failure 500 {object} domain.Response "内部服务器错误"
+// @Router /permissions/{permissionId} [get]
 func (pc *PermissionController) GetPermission(c *gin.Context) {
 	permissionID := c.Param("permissionId")
 
@@ -127,7 +167,14 @@ func (pc *PermissionController) GetPermission(c *gin.Context) {
 	c.JSON(http.StatusOK, domain.Response{Message: "Permission found", Data: permission, Code: "SUCCESS"})
 }
 
-// GetPermissionList 查询权限列表
+// GetPermissionList @Summary 查询权限列表
+// @Description 查询权限列表
+// @Tags permissions
+// @Accept json
+// @Produce json
+// @Success 200 {object} domain.Response "成功"
+// @Failure 500 {object} domain.Response "内部服务器错误"
+// @Router /permissions [get]
 func (pc *PermissionController) GetPermissionList(c *gin.Context) {
 	// 查询权限列表
 	permissions, err := pc.PermissionUseCase.GetList(c)

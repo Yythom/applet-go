@@ -1,0 +1,509 @@
+basePath: /api/v1
+definitions:
+  domain.CreatePermissionRequest:
+    properties:
+      description:
+        type: string
+      name:
+        type: string
+    type: object
+  domain.ErrorResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  domain.LoginResponse:
+    properties:
+      accessToken:
+        type: string
+      refreshToken:
+        type: string
+    type: object
+  domain.RefreshTokenRequest:
+    properties:
+      refreshToken:
+        type: string
+    required:
+    - refreshToken
+    type: object
+  domain.RefreshTokenResponse:
+    properties:
+      accessToken:
+        type: string
+      refreshToken:
+        type: string
+    type: object
+  domain.RegisterRequest:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    type: object
+  domain.RegisterResponse:
+    properties:
+      accessToken:
+        type: string
+      refreshToken:
+        type: string
+    type: object
+  domain.Response:
+    properties:
+      code:
+        type: string
+      data: {}
+      message: {}
+    type: object
+  domain.Role:
+    properties:
+      description:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      permissionIds:
+        items:
+          type: string
+        type: array
+      status:
+        type: string
+    type: object
+  domain.UpdatePermissionRequest:
+    properties:
+      description:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server celler server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Swagger Example API
+  version: "1.0"
+paths:
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: Logs in a user and returns access and refresh tokens
+      parameters:
+      - description: Username
+        in: formData
+        name: name
+        required: true
+        type: string
+      - description: Password
+        in: formData
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successful login
+          schema:
+            allOf:
+            - $ref: '#/definitions/domain.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/domain.LoginResponse'
+              type: object
+        "401":
+          description: Invalid credentials
+          schema:
+            $ref: '#/definitions/domain.Response'
+        "404":
+          description: User not found with the given name
+          schema:
+            $ref: '#/definitions/domain.Response'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/domain.Response'
+      tags:
+      - auth
+  /permissions:
+    get:
+      consumes:
+      - application/json
+      description: 查询权限列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/domain.Response'
+        "500":
+          description: 内部服务器错误
+          schema:
+            $ref: '#/definitions/domain.Response'
+      tags:
+      - permissions
+    post:
+      consumes:
+      - application/json
+      description: 创建权限
+      parameters:
+      - description: 权限信息
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/domain.CreatePermissionRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/domain.Response'
+        "400":
+          description: 请求错误
+          schema:
+            $ref: '#/definitions/domain.Response'
+        "404":
+          description: 未找到资源
+          schema:
+            $ref: '#/definitions/domain.Response'
+        "409":
+          description: 资源冲突
+          schema:
+            $ref: '#/definitions/domain.Response'
+        "500":
+          description: 内部服务器错误
+          schema:
+            $ref: '#/definitions/domain.Response'
+      tags:
+      - permissions
+  /permissions/{permissionId}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除权限
+      parameters:
+      - description: 权限ID
+        in: path
+        name: permissionId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/domain.Response'
+        "404":
+          description: 未找到资源
+          schema:
+            $ref: '#/definitions/domain.Response'
+        "500":
+          description: 内部服务器错误
+          schema:
+            $ref: '#/definitions/domain.Response'
+      tags:
+      - permissions
+    get:
+      consumes:
+      - application/json
+      description: 查询权限
+      parameters:
+      - description: 权限ID
+        in: path
+        name: permissionId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/domain.Response'
+        "404":
+          description: 未找到资源
+          schema:
+            $ref: '#/definitions/domain.Response'
+        "500":
+          description: 内部服务器错误
+          schema:
+            $ref: '#/definitions/domain.Response'
+      tags:
+      - permissions
+    put:
+      consumes:
+      - application/json
+      description: 修改权限
+      parameters:
+      - description: 权限ID
+        in: path
+        name: permissionId
+        required: true
+        type: string
+      - description: 权限信息
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/domain.UpdatePermissionRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            $ref: '#/definitions/domain.Response'
+        "400":
+          description: 请求错误
+          schema:
+            $ref: '#/definitions/domain.Response'
+        "404":
+          description: 未找到资源
+          schema:
+            $ref: '#/definitions/domain.Response'
+        "500":
+          description: 内部服务器错误
+          schema:
+            $ref: '#/definitions/domain.Response'
+      tags:
+      - permissions
+  /refresh_token:
+    post:
+      consumes:
+      - application/json
+      description: 刷新令牌
+      parameters:
+      - description: 刷新令牌请求信息
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/domain.RefreshTokenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 刷新令牌成功
+          schema:
+            $ref: '#/definitions/domain.RefreshTokenResponse'
+        "400":
+          description: 请求错误
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+        "401":
+          description: 未授权
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+        "500":
+          description: 内部服务器错误
+          schema:
+            $ref: '#/definitions/domain.ErrorResponse'
+      tags:
+      - auth
+  /register:
+    post:
+      consumes:
+      - application/json
+      description: 用户注册
+      parameters:
+      - description: 注册请求信息
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/domain.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 注册成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/domain.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/domain.RegisterResponse'
+              type: object
+        "400":
+          description: 请求错误
+          schema:
+            $ref: '#/definitions/domain.Response'
+        "409":
+          description: 用户已存在
+          schema:
+            $ref: '#/definitions/domain.Response'
+        "500":
+          description: 内部服务器错误
+          schema:
+            $ref: '#/definitions/domain.Response'
+      tags:
+      - auth
+  /roles:
+    get:
+      consumes:
+      - application/json
+      description: 获取角色列表
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取角色列表成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/domain.Response'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/domain.Role'
+                  type: array
+              type: object
+        "500":
+          description: 内部服务器错误
+          schema:
+            $ref: '#/definitions/domain.Response'
+      tags:
+      - roles
+    post:
+      consumes:
+      - application/json
+      description: 创建角色
+      parameters:
+      - description: 角色信息
+        in: body
+        name: role
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Role'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: 角色创建成功
+          schema:
+            $ref: '#/definitions/domain.Response'
+        "400":
+          description: 请求错误
+          schema:
+            $ref: '#/definitions/domain.Response'
+        "500":
+          description: 内部服务器错误
+          schema:
+            $ref: '#/definitions/domain.Response'
+      tags:
+      - roles
+  /roles/{roleId}:
+    delete:
+      consumes:
+      - application/json
+      description: 删除角色
+      parameters:
+      - description: 角色ID
+        in: path
+        name: roleId
+        required: true
+        type: string
+      - collectionFormat: csv
+        description: 权限ID列表
+        in: query
+        items:
+          type: string
+        name: permissionIds
+        type: array
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 角色删除成功
+          schema:
+            $ref: '#/definitions/domain.Response'
+        "500":
+          description: 内部服务器错误
+          schema:
+            $ref: '#/definitions/domain.Response'
+      tags:
+      - roles
+    get:
+      consumes:
+      - application/json
+      description: 根据ID获取角色信息
+      parameters:
+      - description: 角色ID
+        in: path
+        name: roleId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 获取角色信息成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/domain.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/domain.Role'
+              type: object
+        "500":
+          description: 内部服务器错误
+          schema:
+            $ref: '#/definitions/domain.Response'
+      tags:
+      - roles
+    put:
+      consumes:
+      - application/json
+      description: 更新角色
+      parameters:
+      - description: 角色ID
+        in: path
+        name: roleId
+        required: true
+        type: string
+      - description: 更新后的角色信息
+        in: body
+        name: updatedRole
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Role'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 角色更新成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/domain.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/domain.Role'
+              type: object
+        "400":
+          description: 请求错误
+          schema:
+            $ref: '#/definitions/domain.Response'
+        "500":
+          description: 内部服务器错误
+          schema:
+            $ref: '#/definitions/domain.Response'
+      tags:
+      - roles
+securityDefinitions:
+  BasicAuth:
+    type: basic
+swagger: "2.0"

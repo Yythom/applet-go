@@ -14,6 +14,17 @@ type RegisterController struct {
 	Env             *bootstrap.Env
 }
 
+// Register @Summary 用户注册
+// @Description 用户注册
+// @Tags auth
+// @Accept json
+// @Produce json
+// @Param request body domain.RegisterRequest true "注册请求信息"
+// @Success 200 {object} domain.Response{data=domain.RegisterResponse} "注册成功"
+// @Failure 400 {object} domain.Response "请求错误"
+// @Failure 409 {object} domain.Response "用户已存在"
+// @Failure 500 {object} domain.Response "内部服务器错误"
+// @Router /register [post]
 func (sc *RegisterController) Register(c *gin.Context) {
 	var request domain.RegisterRequest
 
